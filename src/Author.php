@@ -3,7 +3,6 @@
   class Author
   {
     private $name;
-
     private $id;
 
     function __construct($name, $id)
@@ -30,8 +29,8 @@
     //Save method
     function save()
     {
-      $GLOBALS['DB']->exec("INSERT INTO authors (names)
-      VALUES ('{$this->getname()}');");
+      $GLOBALS['DB']->exec("INSERT INTO authors (name)
+      VALUES ('{$this->getAuthorName()}');");
       $this->id = $GLOBALS['DB']->lastInsertId();
     }
 

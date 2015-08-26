@@ -101,7 +101,6 @@
         //act
         $result = Book::getAll();
 
-        var_dump($result);
 
         //assert
         $this->assertEquals([$test_book1, $test_book2], $result);
@@ -175,6 +174,30 @@
       $this->assertEquals([$test_book2], Book::getAll());
 
     }
+
+    function testAddAuthor()
+    {
+      //Arrange
+      $title = "Kama Sutra";
+      $id = 1;
+      $test_book = new Book ($title, $id);
+      $test_book->save();
+
+      $name = "Mr. Dingus";
+      $id2 = 2;
+      $test_author = new Author ($name, $id2);
+      $test_author->save();
+
+
+      //Act
+      $test_book->addAuthor($test_author);
+
+      $result = $test_book->getAuthors();
+
+      //Assert
+      $this->assertEquals([$test_author], $result);
+    }
+
   }
 
 

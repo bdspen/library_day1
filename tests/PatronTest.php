@@ -19,6 +19,7 @@
       protected function tearDown()
       {
           Patron::deleteAll();
+          Book::deleteAll();
       }
 
       function test_getname()
