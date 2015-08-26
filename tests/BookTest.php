@@ -16,11 +16,10 @@
   class BookTest extends PHPUnit_Framework_TestCase
 
   {
-      // protected function tearDown()
-      // {
-      //     Task::deleteAll();
-      //     Category::deleteAll();
-      // }
+      protected function tearDown()
+      {
+          Book::deleteAll();
+      }
 
       function test_getTitle()
       {
@@ -67,7 +66,49 @@
         $result = $test_book->getId();
 
         //Assert
-        $this->assertEquals(1, $result); 
+        $this->assertEquals(1, $result);
+
+      }
+
+      function test_save()
+      {
+        //Arrange
+        $title = "Growing up Casalino: the Big Ben story";
+        $author = "Big Ben Casalino";
+        $id = 1;
+        $test_book = new Book($title, $author, $id);
+
+        //Act
+        $test_book->save();
+
+        //Assert
+        $result = Book::getAll();
+
+        $this->assertEquals($result[0], $test_book);
+      }
+
+      function test_getAll()
+      {
+        //arrange
+        $title = "Poles, Sweat, and Chicken Strips: the definitive guide to Portland strip clubs";
+        $author = "Grimey Harry";
+        $id = 1;
+        $test_book1 = new Book($title, $author, $id);
+        $test_book1->save();
+
+        $title2 = "My dad my hero";
+        $author2 = "Grimey Harry Jr.";
+        $id2 = 2;
+        $test_book2 = new Book($title2, $author2, $id2);
+        $test_book2->save();
+
+        //act
+        $result = Book::getAll();
+
+        var_dump($result);
+
+        //assert
+        $this->assertEquals([$test_book1, $test_book2], $result);
 
       }
 

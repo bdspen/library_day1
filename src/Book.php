@@ -38,5 +38,35 @@
       return $this->id;
     }
 
-  
+    //Save method
+    function save()
+    {
+      $GLOBALS['DB']->exec("INSERT INTO books (titles, authors)
+      VALUES ('{$this->getTitle()}', '{$this->getAuthor()}');");
+      $this->id = $GLOBALS['DB']->lastInsertId();
+    }
+
+    static function getAll()
+    {
+      $returned_books = $GLOBALS['DB']->query("SELECT * FROM books;");
+      $books = array();
+
+      foreach($returned_books as $book) {
+        $title = $book['titles'];
+        $author = $book['authors'];
+        $id = $book['id'];
+
+        $new_book = new Book ($title, $author, $id);
+        array_push($books, $new_book);
+      }
+      return $books;
+
+    }
+
+    static function deleteAll()
+    {
+      $GLOBALS['DB']->exec("DELETE FROM books;");
+    }
+
   }
+?>
