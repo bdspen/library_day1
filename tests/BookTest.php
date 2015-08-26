@@ -7,6 +7,7 @@
 */
 
   require_once "src/Book.php";
+  require_once "src/Author.php";
 
   $server = 'mysql:host=localhost;dbname=library_test';
   $username = 'root';
@@ -19,15 +20,15 @@
       protected function tearDown()
       {
           Book::deleteAll();
+          Author::deleteAll();
       }
 
       function test_getTitle()
       {
         //Arrange
         $title = "Fun with pillows";
-        $author = "Cringleberry Jones";
         $id = 1;
-        $test_book = new Book ($title, $author, $id);
+        $test_book = new Book ($title, $id);
 
         //Act
         $result = $test_book->getTitle();
@@ -42,9 +43,8 @@
       {
         //Arrange
         $title = "Uncle Ben's puzzle basement";
-        $author = "Dr. H.L. Big-Boi";
         $id = 1;
-        $test_book = new Book ($title, $author, $id);
+        $test_book = new Book ($title, $id);
 
         //Act
         $test_book->setTitle("Welcome to Puzzle Heaven");
@@ -59,8 +59,7 @@
         //Arrange
         $id = 1;
         $title = "Aunt Jehmaima: A century of syrups";
-        $author = "A.J.";
-        $test_book = new Book ($title, $author, $id);
+        $test_book = new Book ($title, $id);
 
         //Act
         $result = $test_book->getId();
@@ -74,9 +73,8 @@
       {
         //Arrange
         $title = "Growing up Casalino: the Big Ben story";
-        $author = "Big Ben Casalino";
         $id = 1;
-        $test_book = new Book($title, $author, $id);
+        $test_book = new Book($title, $id);
 
         //Act
         $test_book->save();
@@ -91,15 +89,13 @@
       {
         //arrange
         $title = "Poles, Sweat, and Chicken Strips: the definitive guide to Portland strip clubs";
-        $author = "Grimey Harry";
         $id = 1;
-        $test_book1 = new Book($title, $author, $id);
+        $test_book1 = new Book($title, $id);
         $test_book1->save();
 
         $title2 = "My dad my hero";
-        $author2 = "Grimey Harry Jr.";
         $id2 = 2;
-        $test_book2 = new Book($title2, $author2, $id2);
+        $test_book2 = new Book($title2, $id2);
         $test_book2->save();
 
         //act
@@ -115,15 +111,13 @@
       function test_deleteAll()
       {
         $title = "Poles, Sweat, and Chicken Strips: the definitive guide to Portland strip clubs";
-        $author = "Grimey Harry";
         $id = 1;
-        $test_book1 = new Book($title, $author, $id);
+        $test_book1 = new Book($title, $id);
         $test_book1->save();
 
         $title2 = "My dad my hero";
-        $author2 = "Grimey Harry Jr.";
         $id2 = 2;
-        $test_book2 = new Book($title2, $author2, $id2);
+        $test_book2 = new Book($title2, $id2);
         $test_book2->save();
 
         Book::deleteAll();
@@ -135,15 +129,13 @@
       function test_find()
       {
         $title = "Life without apostrophes";
-        $author = "S.B. Dingus";
         $id = 1;
-        $test_book1 = new Book ($title, $author, $id);
+        $test_book1 = new Book ($title, $id);
         $test_book1->save();
 
         $title2 = "Down by the riverside";
-        $author2 = "S.B. Dingus";
         $id2 = 2;
-        $test_book2 = new Book ($title2, $author2, $id2);
+        $test_book2 = new Book ($title2, $id2);
         $test_book2->save();
 
         $result = Book::find($test_book2->getId());
@@ -154,9 +146,8 @@
     function testUpdateTitle()
     {
       $title = "The Life and Times of Carrot Top";
-      $author = "Ernest Hemingway";
       $id = 1;
-      $test_book = new Book($title, $author, $id);
+      $test_book = new Book($title, $id);
       $test_book->save();
 
       $new_title = "The Old Man Had to Pee";
@@ -170,15 +161,13 @@
     function testDeleteBook()
     {
       $title = "BRING ON THE PAIN";
-      $author = "Hulk Hogan";
       $id = 1;
-      $test_book = new Book($title, $author, $id);
+      $test_book = new Book($title, $id);
       $test_book->save();
 
       $title2 = "Oh Yeah";
-      $author2 = "Kool-aid Man and Randal Savage";
       $id2 = 2;
-      $test_book2 = new Book($title2, $author2, $id2);
+      $test_book2 = new Book($title2, $id2);
       $test_book2->save();
 
       $test_book->deleteBook();
