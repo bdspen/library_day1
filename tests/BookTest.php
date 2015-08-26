@@ -112,9 +112,62 @@
 
       }
 
+      function test_deleteAll()
+      {
+        $title = "Poles, Sweat, and Chicken Strips: the definitive guide to Portland strip clubs";
+        $author = "Grimey Harry";
+        $id = 1;
+        $test_book1 = new Book($title, $author, $id);
+        $test_book1->save();
+
+        $title2 = "My dad my hero";
+        $author2 = "Grimey Harry Jr.";
+        $id2 = 2;
+        $test_book2 = new Book($title2, $author2, $id2);
+        $test_book2->save();
+
+        Book::deleteAll();
+
+        $result = Book::getAll();
+        $this->assertEquals([], $result);
+      }
+
+      function test_find()
+      {
+        $title = "Life without apostrophes";
+        $author = "S.B. Dingus";
+        $id = 1;
+        $test_book1 = new Book ($title, $author, $id);
+        $test_book1->save();
+
+        $title2 = "Down by the riverside";
+        $author2 = "S.B. Dingus";
+        $id2 = 2;
+        $test_book2 = new Book ($title2, $author2, $id2);
+        $test_book2->save();
+
+        $result = Book::find($test_book2->getId());
+
+        $this->assertEquals($test_book2, $result);
+      }
+
+    function testUpdate()
+    {
+      $title = "The Life and Times of Carrot Top";
+      $author = "Ernest Hemingway";
+      $id = 1;
+      $test_book = new Book($title, $author, $id);
+      $test_book->save();
+
+      $new_title = "The Old Man Had to Pee";
+
+      $test_book->update($new_title);
+
+      $this->assertEquals("The Old Man Had to Pee", $test_book->getTitle()); 
     }
 
+  }
 
 
 
-      ?>
+?>
