@@ -198,6 +198,32 @@
       $this->assertEquals([$test_author], $result);
     }
 
+    function testGetAuthors()
+    {
+      $name = "Uncle Ben";
+      $id3 = 3;
+      $test_author = new Author($name, $id3);
+      $test_author->save();
+
+      $name2 = "Goof Ball";
+      $id2 = 2;
+      $test_author2 = new Author ($name2, $id2);
+      $test_author2->save();
+
+      $title = "Kama Sutra";
+      $id = 1;
+      $test_book = new Book ($title, $id);
+      $test_book->save();
+
+      //Act
+      $test_book->addAuthor($test_author);
+      $test_book->addAuthor($test_author2);
+
+      //Assert
+      $this->assertEquals($test_book->getAuthors(), [$test_author, $test_author2]);
+
+    }
+
   }
 
 

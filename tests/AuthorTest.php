@@ -175,5 +175,55 @@
 
     }
 
+    function testAddBook()
+    {
+      //Arrange
+      $title = "Kama Sutra";
+      $id = 1;
+      $test_book = new Book ($title, $id);
+      $test_book->save();
+
+      $name = "Mr. Dingus";
+      $id2 = 2;
+      $test_author = new Author ($name, $id2);
+      $test_author->save();
+
+
+      //Act
+      $test_author->addBook($test_book);
+
+      $result = $test_author->getBooks();
+
+      //Assert
+      $this->assertEquals([$test_book], $result);
+    }
+
+    function testGetBooks()
+    {
+      $title = "Kama Sutra";
+      $id = 1;
+      $test_book = new Book ($title, $id);
+      $test_book->save();
+
+      $title2 = "Oh Yeah";
+      $id2 = 2;
+      $test_book2 = new Book($title2, $id2);
+      $test_book2->save();
+
+      $name = "Uncle Ben";
+      $id3 = 3;
+      $test_author = new Author($name, $id3);
+      $test_author->save();
+
+
+      //Act
+      $test_author->addBook($test_book);
+      $test_author->addBook($test_book2);
+
+      //Assert
+      $this->assertEquals($test_author->getBooks(), [$test_book, $test_book2]);
+
+    }
+
   }
 ?>
