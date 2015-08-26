@@ -1,5 +1,7 @@
 <?php
 
+//all methods and tests passing
+
   class Patron
   {
     private $name;

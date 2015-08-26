@@ -1,5 +1,7 @@
 <?php
 
+//all methods working and tests passing
+
   class Author
   {
     private $name;
