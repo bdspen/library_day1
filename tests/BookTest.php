@@ -151,7 +151,7 @@
         $this->assertEquals($test_book2, $result);
       }
 
-    function testUpdate()
+    function testUpdateTitle()
     {
       $title = "The Life and Times of Carrot Top";
       $author = "Ernest Hemingway";
@@ -161,11 +161,31 @@
 
       $new_title = "The Old Man Had to Pee";
 
-      $test_book->update($new_title);
+      $test_book->updateTitle($new_title);
 
-      $this->assertEquals("The Old Man Had to Pee", $test_book->getTitle()); 
+      $this->assertEquals("The Old Man Had to Pee", $test_book->getTitle());
     }
 
+
+    function testDeleteBook()
+    {
+      $title = "BRING ON THE PAIN";
+      $author = "Hulk Hogan";
+      $id = 1;
+      $test_book = new Book($title, $author, $id);
+      $test_book->save();
+
+      $title2 = "Oh Yeah";
+      $author2 = "Kool-aid Man and Randal Savage";
+      $id2 = 2;
+      $test_book2 = new Book($title2, $author2, $id2);
+      $test_book2->save();
+
+      $test_book->deleteBook();
+
+      $this->assertEquals([$test_book2], Book::getAll());
+
+    }
   }
 
 

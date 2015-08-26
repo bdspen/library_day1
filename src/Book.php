@@ -82,11 +82,15 @@
       return $found_book;
     }
 
-    function update($new_title)
+    function updateTitle($new_title)
     {
       $GLOBALS['DB']->exec("UPDATE books SET titles = '{$new_title}' WHERE id = {$this->getId()};");
-      $this->setTitle($new_title); 
+      $this->setTitle($new_title);
     }
 
+    function deleteBook()
+    {
+      $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
+    }
   }
 ?>
