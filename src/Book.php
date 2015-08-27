@@ -111,10 +111,11 @@
         $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$this->getId()}, {$new_author->getId()});");
     }
 
-    function deleteAuthor()
+    function deleteAuthor($author_id)
     {
 
-      $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()}");
+      $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()} AND
+      author_id = {$author_id}");
     }
 
 
@@ -136,7 +137,7 @@
 
     function addCopy($number_of_copies) {
         $count = 1;
-        while ($count <= $number_of_copies) {
+        while ($count < $number_of_copies) {
             $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()})");
             $count++;
         }

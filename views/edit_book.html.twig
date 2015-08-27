@@ -12,7 +12,15 @@
         <h3>Authors:</h3>
         {% for author in book_authors %}
             <ul>
-                <li>{{ author.getAuthorName }}</li>
+                <li>{{ author.getAuthorName }}
+                    <form action='/book/{{ book.getId }}/delete_author' method="post">
+                        <input type='hidden' name='author_id' value='{{ author.getId }}'>
+                        <input name="_method" type="hidden" value="delete">
+                        <button type='submit'>Delete</button>
+                    </form>
+
+                </form></li>
+                <li>{{ book.countCopies }}</li>
             </ul>
             {% endfor %}
         <div class='container'>
@@ -26,6 +34,10 @@
 
                 <label for="add_author">Add Additional Author</label>
                 <input id="add_author" name="add_author" type="text">
+
+                <label for="add_copies">Change Copy Amount</label>
+                <input id="add_copies" placeholder='{{ book.countCopies }}'
+                name="add_copies" type="number">
 
                 <button type="submit">Update</button>
             </form>

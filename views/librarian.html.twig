@@ -13,6 +13,9 @@
             <input type='text' id= 'author' name='author'>
             <label for='author'>Add an Author</label>
 
+            <input type='number' min='1' max='5000' id= 'copies' name='copies'>
+            <label for='copies'>Add number of copies</label>
+
             <button type= 'submit'>Add Book</button>
         </form>
 
@@ -25,7 +28,8 @@
             {% for book in books %}
             {% set book_authors = book.getAuthors %}
 
-                <p><strong><a href='/book/{{ book.getId }}/edit'>{{ book.getTitle }} </a><strong></p>
+                <p><strong><a href='/book/{{ book.getId }}/edit'>{{ book.getTitle }} </a><strong>
+                    Copies: {{ book.countCopies }}</p>
 
                 {% for author in book_authors %}
                     <ul>

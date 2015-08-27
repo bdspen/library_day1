@@ -40,6 +40,7 @@
         $author->save();
 
         $book->addAuthor($author);
+        $book->addCopy($_POST['copies']);
 
 
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
@@ -80,6 +81,14 @@
         Book::deleteAll();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
     'authors' => Author::getAll()));
+    });
+
+    $app->delete("/book/{id}/delete_author", function($id) use ($app) {
+        $book = Book::find($id);
+        $book->deleteAuthor($_POST['author_id']);
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
+    'authors' => Author::getAll()));
+
     });
 
 
