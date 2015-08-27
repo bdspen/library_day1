@@ -73,6 +73,20 @@
       return $found_author;
     }
 
+    static function findByName($search_name)
+    {
+      $found_author = null;
+      $authors = Author::getAll();
+      foreach($authors as $author) {
+        $author_name = $author->getAuthorName();
+        if ($author_name == $search_name) {
+          $found_author = $author;
+        }
+      }
+
+      return $found_author;
+    }
+
     function updateAuthorName($new_name)
     {
       $GLOBALS['DB']->exec("UPDATE authors SET name = '{$new_name}' WHERE id = {$this->getId()};");

@@ -6,13 +6,32 @@
     <body>
 
         <h1>You are editing {{ book.getTitle }}</h1>
+
+
+        {% set book_authors = book.getAuthors %}
+        <h3>Authors:</h3>
+        {% for author in book_authors %}
+            <ul>
+                <li>{{ author.getAuthorName }}</li>
+            </ul>
+            {% endfor %}
         <div class='container'>
             <form action="/book/{{ book.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
                 <label for="title">New Title</label>
                 <input id="title" name="title" type="text">
 
+                <label for="author">New Author</label>
+                <input id="author" name="author" type="text">
+
+                <label for="add_author">Add Additional Author</label>
+                <input id="add_author" name="add_author" type="text">
+
                 <button type="submit">Update</button>
+            </form>
+            <form action="/book/{{book.getId}}/delete" method='post'>
+                <input name="_method" type="hidden" value="delete">
+                <button type='submit'>Delete</button>
             </form>
 
         </div>

@@ -78,6 +78,27 @@
       $this->setTitle($new_title);
     }
 
+    function updateAuthor($author)
+    {
+        $this->deleteAuthor();
+        $this->addAuthor($author);
+
+    }
+    //Check to see if author is already saved, if not saves an author to the DB
+    //and returns author
+    function checkAuthor($author_name)
+    {
+        $new_author = null;
+        if(Author::findByName($author_name))
+        {
+            $new_author = Author::findByName($author_name);
+        }else{
+            $new_author = new Author($author_name);
+            $new_author->save();
+        }
+        return $new_author;
+    }
+
     function deleteBook()
     {
       $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
@@ -85,10 +106,17 @@
     }
 
     function addAuthor($new_author)
-          {
+    {
 
-            $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$this->getId()}, {$new_author->getId()});");
-          }
+        $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$this->getId()}, {$new_author->getId()});");
+    }
+
+    function deleteAuthor()
+    {
+
+      $GLOBALS['DB']->exec("DELETE FROM books_authors WHERE book_id = {$this->getId()}");
+    }
+
 
     function getAuthors()
     {
