@@ -46,6 +46,14 @@
     'authors' => Author::getAll()));
     });
 
+    $app->delete("/book/{id}/delete", function($id) use ($app) {
+        $book = Book::find($id);
+        $book->deleteBook();
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
+    'authors' => Author::getAll()));
+
+    });
+
     $app->post("/delete_all_books", function() use ($app) {
         Book::deleteAll();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),

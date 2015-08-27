@@ -25,13 +25,17 @@
             {% for book in books %}
             {% set book_authors = book.getAuthors %}
 
-                <p><strong>{{ book.getTitle }}<strong></p>
+                <p><strong><a href='/book/{{ book.getId }}/edit'>{{ book.getTitle }} </a><strong></p>
 
                 {% for author in book_authors %}
                     <ul>
                         <li>{{author.getAuthorName}}</li>
                     </ul>
                 {% endfor %}
+                <form action="/book/{{book.getId}}/delete" method='post'>
+                    <input name="_method" type="hidden" value="delete">
+                    <button type='submit'>Delete</button>
+                </form>
             {% endfor %}
         {% endif %}
 
