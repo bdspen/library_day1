@@ -73,6 +73,10 @@
             $author_name = $_POST['add_author'];
             $book->addAuthor($book->checkAuthor($author_name));
         }
+        if ( !empty($_POST['add_copies']) ) {
+            $add_copies = $_POST['add_copies'];
+            $book->updateCopies($add_copies);
+        }
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
     'authors' => Author::getAll()));
     });

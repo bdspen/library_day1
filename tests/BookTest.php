@@ -239,7 +239,7 @@
       //Assert
       $result = $test_book->countCopies();
 
-      $this->assertEquals($result, 5);
+      $this->assertEquals($result, 4);
     }
 
     function testUpdateAuthor()

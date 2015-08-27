@@ -80,9 +80,7 @@
 
     function updateAuthor($author)
     {
-        $this->deleteAuthor();
-        $this->addAuthor($author);
-
+        $GLOBALS["DB"]->exec("UPDATE books_authors SET author_id = {$author->getId()} WHERE book_id = {$this->id}");
     }
     //Check to see if author is already saved, if not saves an author to the DB
     //and returns author
@@ -155,6 +153,25 @@
         }
 
         return $count;
+    }
+
+    function updateCopies($new_number_of_copies)
+    {
+        $current_copies = $this->countCopies();
+        if ($new_number_of_copies > $current_copies) {
+            $count = $new_number_of_copies - $current_copies;
+            while ($count <= $new_number_of_copies) {
+                $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()})");
+                $count++;
+            }
+        } else {
+            $GLOBALS['DB']->exec("DELETE FROM copies WHERE book_id = {$this->id}");
+            $count = 1;
+            while ($count <= $new_number_of_copies) {
+                $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()})");
+                $count++;
+            }
+        }
     }
 
 
