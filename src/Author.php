@@ -7,7 +7,7 @@
     private $name;
     private $id;
 
-    function __construct($name, $id)
+    function __construct($name, $id= null)
     {
       $this->name = $name;
       $this->id = $id;
@@ -39,6 +39,8 @@
     static function deleteAll()
     {
       $GLOBALS['DB']->exec("DELETE FROM authors;");
+      $GLOBALS['DB']->exec("DELETE FROM authors_books;");
+
     }
 
     static function getAll()
@@ -84,7 +86,7 @@
 
     function addBook($new_book)
           {
-            
+
             $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$new_book->getId()}, {$this->getId()});");
           }
 

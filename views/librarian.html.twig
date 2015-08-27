@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Librarian</title>
+    </head>
+    <body>
+        <h1>Librarian page</h1>
+
+        <form action = '/librarian' method='post'>
+
+            <input type='text' id= 'title' name='title'>
+            <label for='title'>Add a Title</label>
+
+            <input type='text' id= 'author' name='author'>
+            <label for='author'>Add an Author</label>
+
+            <button type= 'submit'>Add Book</button>
+        </form>
+
+        {% if books is not empty %}
+                <h4>List of books:</h4>
+                <form action='/delete_all_books' method='post'>
+                    <button type='submit'>Delete All Books!</button>
+
+                </form>
+            {% for book in books %}
+            {% set book_authors = book.getAuthors %}
+
+                <p><strong>{{ book.getTitle }}<strong></p>
+
+                {% for author in book_authors %}
+                    <ul>
+                        <li>{{author.getAuthorName}}</li>
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+    </body>
+</html>
