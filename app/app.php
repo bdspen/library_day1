@@ -54,6 +54,21 @@
 
     });
 
+    $app->get("/book/{id}/edit", function($id) use ($app) {
+        $book = Book::find($id);
+        return $app['twig']->render("edit_book.html.twig", array("book" => $book));
+    });
+
+    $app->patch("/book/{id}", function($id) use ($app) {
+        if ( !empty($_POST['title']) ) {
+            $new_title = $_POST['title'];
+            $book = Book::find($id);
+            $book->updateTitle($new_title);
+        }
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
+    'authors' => Author::getAll()));
+    });
+
     $app->post("/delete_all_books", function() use ($app) {
         Book::deleteAll();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(),
