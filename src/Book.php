@@ -31,6 +31,9 @@
       $GLOBALS['DB']->exec("INSERT INTO books (titles)
       VALUES ('{$this->getTitle()}');");
       $this->id = $GLOBALS['DB']->lastInsertId();
+
+      $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()})");
+
     }
 
     static function deleteAll()
@@ -101,31 +104,28 @@
         return $authors;
     }
 
-    // all of the methods and tests up unitl here are working
-    // we have yet to test these methods for sending these individual book
-    // ids to the copies table. we hope that count copies might
-    // count the number of times the current id is repeated in book_id
-    //
+    function addCopy($number_of_copies) {
+        $count = 1;
+        while ($count <= $number_of_copies) {
+            $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()})");
+            $count++;
+        }
+    }
 
-    // function sendCopy()
-    // {
-    //   $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({this->getId()});")
-    // }
-    //
-    // function countCopies()
-    // {
-    //     $matching_copies = $GLOBALS['DB']->("SELECT * FROM copies;");
-    //     $count = 0;
-    //
-    //     foreach($matching_copies as $copy) {
-    //       if $this->getId() = $copy['book_id']{
-    //         $count++;
-    //       }
-    //     }
-    //
-    //     return $count;
-    // }
-    //
+    function countCopies()
+    {
+        $matching_copies = $GLOBALS['DB']->query("SELECT * FROM copies");
+        $count = 0;
+
+        foreach($matching_copies as $copy) {
+          if ($this->getId() == $copy['book_id']) {
+            $count++;
+          }
+        }
+
+        return $count;
+    }
+
 
 
   }

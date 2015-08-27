@@ -224,6 +224,24 @@
 
     }
 
+    function test_countCopies()
+    {
+      //Arrange
+      $title = "Growing up Casalino: the Big Ben story";
+      $id = 1;
+      $test_book = new Book($title, $id);
+      $test_book->save();
+
+
+      //Act
+      $test_book->addCopy(4);
+
+      //Assert
+      $result = $test_book->countCopies();
+
+      $this->assertEquals($result, 5);
+    }
+
   }
 
 

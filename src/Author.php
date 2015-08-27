@@ -84,7 +84,7 @@
 
     function addBook($new_book)
           {
-            var_dump($new_book);
+            
             $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$new_book->getId()}, {$this->getId()});");
           }
 
